@@ -2,10 +2,38 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <p>session id: <%= sessionid %></p>
+    <ul>
+        <% sfacctrecords.forEach(function(acct) { %>
+          <li><a href="https://mds-sdofy20.my.salesforce.com<%= acct.attributes.url %>"> <%= acct.attributes.type %> <%= acct._fields.name %>: </a> </li>
+        <% }); %>
+    </ul>
   </body>
+
+  <script>
+    var config = {
+      appId: "<%= appId %>",
+      loApp: "<%= loApp %>"
+    };
+  </script>
+  <script src="https://mds-sdofy20.my.salesforce.com/lightning/lightning.out.js"></script>
+  <script>
+    $Lightning.use("c:loApp", function() {
+      $Lightning.createComponent("lightning:button",
+          { label : "Press Me!" },
+          "lightning",
+          function(cmp) {
+            console.log("button was created");
+            // do some stuff
+          }
+      )
+    , 'https://mds-sdofy20.lightning.force.com', 
+    sessionid
+  });
+</script>
 </html>
