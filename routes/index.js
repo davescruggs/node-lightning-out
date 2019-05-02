@@ -52,8 +52,10 @@ org.authenticate({ username: sfuser, password: sfpass }).then(function() {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+  res.setHeader('Access-Control-Allow-Credentials', true); // If needed
 
   res.render('index', 
     { title: 'Express', sessionid: sfoauthtoken, 
